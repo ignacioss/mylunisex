@@ -1,0 +1,75 @@
+<mat-sidenav-container *ngIf="isLoggedIn$ | async as isLoggedIn">
+
+    <br>
+    <mat-divider></mat-divider>
+    <mat-sidenav opened mode="side">
+        <IMG src="https://holanosoynada222.000webhostapp.com/Zapat/Productos/ImagenesProductos/ic_launcher.jpeg"
+            width="200" height="200" />
+
+        <mat-divider></mat-divider>
+
+        <mat-nav-list class="bg-dark">
+            <a class="text-white" mat-list-item>
+                MENU STOCK
+            </a>
+        </mat-nav-list>
+
+
+        <mat-divider></mat-divider>
+
+
+        <mat-nav-list class="bg-dark">
+            <a class="text-white" mat-list-item routerLinkActive="list-item-active" [routerLink]="['controlStock']">
+                <mat-icon>home</mat-icon> Stock de sucursales
+            </a>
+        </mat-nav-list>
+
+        <mat-divider></mat-divider>
+        <mat-nav-list class="bg-dark">
+
+            <a class="text-white" mat-list-item routerLinkActive="list-item-active" [routerLink]="['listarProductos']">
+                <mat-icon>view_list</mat-icon> Ver productos cargados
+            </a>
+        </mat-nav-list>
+
+        <mat-nav-list class="bg-dark">
+
+            <a class="text-white" mat-list-item routerLinkActive="list-item-active" [routerLink]="['crearProducto']">
+                <mat-icon>add</mat-icon> Agregar Producto
+            </a>
+        </mat-nav-list>
+        <br>
+
+        <mat-divider></mat-divider>
+
+
+        <mat-nav-list class="bg-dark">
+
+            <a class="text-white" mat-list-item routerLinkActive="list-item-active" [routerLink]="['marcas']">
+                <mat-icon>dashboard</mat-icon> Marcas
+            </a>
+        </mat-nav-list>
+
+
+        <mat-nav-list class="bg-dark">
+
+            <a class="text-white" mat-list-item routerLinkActive="list-item-active" [routerLink]="['categorias']">
+                <mat-icon>dashboard</mat-icon> Categorias
+            </a>
+        </mat-nav-list>
+
+        <mat-nav-list class="bg-dark">
+
+                <a class="text-white" mat-list-item routerLinkActive="list-item-active" [routerLink]="['talles']">
+                    <mat-icon>dashboard</mat-icon> Talles
+                </a>
+            </mat-nav-list>
+
+
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

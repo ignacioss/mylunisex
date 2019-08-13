@@ -1,0 +1,49 @@
+<br>
+<div class="container-fluid">
+    <h1>Marcas</h1>
+
+<br>
+
+<div class="mat-elevation-z8">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+        <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID Marca </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.idMarca}} </mat-cell>
+        </ng-container>
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nombreMarca">
+            <mat-header-cell *matHeaderCellDef> Nombre Marca </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombreMarca}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-raised-button color="secondary" (click)="editarProducto(row)">Editar</button>
+            </mat-cell>
+
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+   
+</div>
+<br>
+<div class="column col-md-12">
+    <button mat-raised-button color="primary" [hidden]="ocultarBotonAgregarTalle" (click)="agregarMarca()"
+        class="float-sm-right w-25">
+        <mat-icon>
+            add
+        </mat-icon>Agregar marca
+    </button>
+</div>
+</div>

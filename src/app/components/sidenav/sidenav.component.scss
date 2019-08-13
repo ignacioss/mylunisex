@@ -1,0 +1,87 @@
+    .list-item-active {
+        font-weight: bold;
+        color: orange;
+        background: rgba(0, 0, 0, 0.04);
+    }
+    
+    .wrapper {
+        position: relative;
+        top: 0;
+        height: 100vh;
+    }
+    
+    .logo {
+        padding: 15px 0px;
+        margin: 0;
+        display: block;
+        position: relative;
+        z-index: 4;
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 15px;
+            height: 1px;
+            width: calc(100% - 30px);
+            background-color: rgba(180, 180, 180, .3);
+        }
+        p {
+            float: left;
+            font-size: 20px;
+            margin: 10px 10px;
+            line-height: 20px;
+        }
+        .simple-text {
+            text-transform: uppercase;
+            display: inline-block;
+            font-size: 18px;
+            white-space: nowrap;
+            line-height: 30px;
+            overflow: hidden;
+            text-align: center;
+            display: block;
+        }
+    }
+    
+    .logo-tim {
+        border-radius: 50%;
+        border: 1px solid #333;
+        display: block;
+        height: 61px;
+        width: 61px;
+        float: left;
+        overflow: hidden;
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+    
+    .mat-sidenav-container {
+        height: 100%;
+    }
+    /*
+  
+  .sidenav-container {
+    height: 100%;
+  }
+  */
+    
+    // https://github.com/angular/material2/blob/master/src/lib/core/style/_variables.scss
+    // $sidenav-width: 320px; // 240px;
+    .mat-sidenav {
+        width: 200px;
+    }
+    
+    .toolbar-title {
+        margin: 0 16px 0 16px;
+    }
+    
+    .mat-subheader {
+        font-size: 18px;
+        font-weight: 900;
+    }
+    
+    .app-nav-list-icon {
+        margin: 0 12px 0 12px;
+    }

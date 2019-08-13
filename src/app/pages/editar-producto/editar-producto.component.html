@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Editar: '{{elemento.nombre}}'</h1>
+
+<mat-dialog-content>
+
+    <div class="form-group col-md-10">
+
+        <div class="container">
+            <form [formGroup]="formulario" (submit)="onSubmit(formulario)">
+
+
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="elemento.nombre" formControlName="nombre" class="form-control"
+                            placeholder="Nombre:">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="elemento.precioVenta" formControlName="precioVenta"
+                            class="form-control" placeholder="Precio de Venta:">
+                    </mat-form-field>
+                </div>
+
+
+
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Categoria</mat-label>
+                        <mat-select [(ngModel)]="producto.idCategoria" formControlName="categoria" class="form-control"
+                            name="idCategoria">
+                            <mat-option *ngFor="let i of categorias" [value]="i.idCategoria">
+                                {{i.nombreCategoria}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-label>Marca</mat-label>
+                        <mat-select [(ngModel)]="producto.idMarca" formControlName="marca" class="form-control"
+                            name="idM">
+                            <mat-option *ngFor="let m of marcas" type="number" [value]="m.idMarca">
+                                {{m.nombreMarca}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div class="form-groupd-block">
+                    <span style="float: right;">
+                        <button type="submit" class="btn btn-success mr-2">Guardar</button>
+
+                    </span>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <span style="float: left;">
+        <button class="btn btn-link" (click)="cancelar()" [routerLink]="['/dashboard/controlStock']">Cancelar</button>
+    </span>
+</mat-dialog-content>

@@ -1,0 +1,96 @@
+<div class="well bg-light">
+    <div class="col-md-12">
+        <br>
+        <h1 mat-dialog-title>Agregar talle de un producto en la sucursal '{{sucursal.Nombre}}'.</h1>
+        <br>
+
+    </div>
+</div>
+
+
+<br>
+<mat-dialog-content>
+
+    <div class="form-group col-md-12">
+
+        <form [formGroup]="formulario" (submit)="onSubmit(formulario)">
+
+
+
+            <div class="col-md-5">
+                <mat-form-field>
+                    <mat-label>Productos</mat-label>
+                    <mat-select id="codGrupal" formControlName="codGrupal">
+                        <mat-option *ngFor="let i of productos" [value]="i.codGrupal">
+                            {{i.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-5">
+                <mat-form-field>
+                    <mat-label>Talle</mat-label>
+                    <mat-select id="idTalle" formControlName="idTalle">
+                        <mat-option *ngFor="let i of talles" [value]="i.idTalle">
+                            {{i.nombreTalle}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="form-row ">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Cantidad de stock a insertar:</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="0" id="cantidad" formControlName="cantidad">
+                    <div class="errorcodigo" *ngIf="formulario.controls.cantidad.errors">
+                        El campo no puede estar vacio
+                    </div>
+
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Precio compra x Unidad:</span>
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="0" id="precioComprado"
+                        formControlName="precioComprado">
+                    <div class="errorcodigo" *ngIf="formulario.controls.precioComprado.errors">
+                        El campo no puede estar vacio
+                    </div>
+
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Precio venta x Unidad:</span>
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="0" id="precioVenta"
+                        formControlName="precioVenta">
+                    <div class="errorcodigo" *ngIf="formulario.controls.precioVenta.errors">
+                        El campo no puede estar vacio
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-groupd-block">
+                <span style="float: right;">
+                    <button type="submit" class="btn btn-success mr-2">Guardar</button>
+
+                </span>
+
+            </div>
+        </form>
+    </div>
+
+
+    <span style="float: left;">
+        <button class="btn btn-link" (click)="cancelar()" [routerLink]="['/dashboard/controlStock']">Cancelar</button>
+    </span>
+</mat-dialog-content>

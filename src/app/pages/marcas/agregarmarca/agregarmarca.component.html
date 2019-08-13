@@ -1,0 +1,46 @@
+<div class="bg-light">
+        <div class="col-md-5">
+                <h1 mat-dialog-title>NUEVA MARCA:</h1>
+             
+            </div>
+</div>
+
+<div class="container">
+
+    <form [formGroup]="formulario" (submit)="onSubmit(formulario)">
+
+        <div class="border bg-light">
+            <div class="form-row ">
+
+
+                <div class=" col-md-5">
+                    <label>Nombre de la nueva marca</label>
+                    <input value="newProducto" type="text" class="form-control" placeholder="Nombre nuevo de la marca"
+                        formControlName="nombreMarca" id="nombreMarca">
+                    <div class="errorcodigo" *ngIf="formulario.controls.nombreMarca.errors">
+                        El campo no puede estar vacio
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            
+
+        </div><br><div class="form-groupd-block">
+                
+                <span style="float: right;">
+                    <button type="submit" class="btn btn-success mr-5"
+                        [routerLink]="['/dashboard/marcas']">Crear</button>
+
+                </span>
+
+            </div>
+
+
+    </form>
+</div> 
+<span style="float: left;">
+    <button class="btn btn-outline-primary" (click)="cancelar()" [routerLink]="['/dashboard/marcas']">Cancelar</button>
+</span>

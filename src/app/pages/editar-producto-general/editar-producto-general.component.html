@@ -1,0 +1,131 @@
+<div class="alert alert-warning">
+    <h3>Atencion</h3>
+    <strong>Este cambio afectar a todas las sucursales que tengan este producto</strong>
+</div>
+
+
+<div class="bg-light">
+    <div class="row">
+        <div class="col-md-5">
+            <h1 mat-dialog-title>EDITAR: '{{elemento.nombre}}'</h1>
+            <p> CATEGORIA ACTUAL: '{{elemento.nombreCategoria}}'</p>
+            <p> MARCA ACTUAL: '{{elemento.nombreMarca}}'</p>
+        </div>
+
+        <div class="col-7 float-md-right">
+            <br>
+            <p>IMAGEN ACTUAL:</p>
+            <form [formGroup]="formulario" (submit)="onSubmit(formulario)">
+                <img [src]="imagenActual" width="150" height="100" />
+
+
+            </form>
+            <br>
+        </div>
+
+    </div>
+
+</div>
+<br>
+<form [formGroup]="formulario" (submit)="onSubmit(formulario)">
+
+    <div class="border bg-light">
+        <div class="form-row ">
+
+
+            <div class=" col-md-5">
+                <label>Nombre nuevo del producto</label>
+                <input value="newProducto" type="text" class="form-control" placeholder="Nombre del nuevo producto"
+                    formControlName="nombre" id="Nombre">
+                <div class="errorcodigo" *ngIf="formulario.controls.nombre.errors">
+                    El campo no puede estar vacio
+                </div>
+            </div>
+
+
+            <div class="col-6 float-md-right">
+                <label for="avatar">Imagen para el producto:</label>
+
+                <form [formGroup]="formula" accept="image/*">
+                    <input #myInput type="file" name="avatar" (change)="onFileSelect($event)" />
+                </form>
+
+                <br>
+                <div class="form-group" [hidden]="ocultarFoto">
+                    <div class="row">
+                        <div class="col-12">
+                            <div *ngIf="prev">
+                                <img src="data:image/png;base64,{{ imagenSeleccionada }}" class="img-thumbnail"
+                                    width="200" height="200" formControlName="imagen">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="form-row ">
+
+            <div class="col-md-5">
+                <mat-form-field>
+                    <mat-label>Marcas</mat-label>
+                    <mat-select id="idMarca" formControlName="idMarca">
+                        <mat-option *ngFor="let i of marcas" [value]="i.idMarca">
+                            {{i.nombreMarca}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="col-md-5">
+                <mat-form-field>
+                    <mat-label>Categoria</mat-label>
+                    <mat-select id="idCategoria" formControlName="idCategoria">
+                        <mat-option *ngFor="let i of categorias" [value]="i.idCategoria">
+                            {{i.nombreCategoria}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    <br>
+
+
+    <div class="container h-100" [hidden]="loading">
+        <div class="row h-100 justify-content-center align-items-center">
+            <form class="col-8">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </form>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-groupd-block">
+        <span style="float: right;">
+            <button type="submit" class="btn btn-success mr-5"
+                [routerLink]="['/dashboard/listarProductos']">Guardar</button>
+
+        </span>
+
+    </div>
+
+</form>
+
+<span style="float: left;">
+    <button class="btn btn-outline-primary" (click)="cancelar()"
+        [routerLink]="['/dashboard/listarProductos']">Cancelar</button>
+</span>

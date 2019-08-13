@@ -1,0 +1,75 @@
+<!-- <h1>Nuevo Producto</h1>
+<mat-dialog-content>
+    <form class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field>
+                    <mat-label>Sucursal</mat-label>
+                    <mat-select [(ngModel)]="producto.idLocal" #idLocal="ngModel" name="idLocal">
+                        <mat-option [value]="1">
+                            Sucursal 1
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field>
+                    <mat-label>Categoria</mat-label>
+                    <mat-select [(ngModel)]="producto.idCategoria" name="idCategoria">
+                        <mat-option *ngFor="let i of categorias" [value]="i.idCategoria">
+                            {{i.nombreCategoria}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field>
+                    <mat-label>Marca</mat-label>
+                    <mat-select [(ngModel)]="producto.idMarca" name="idM">
+                        <mat-option *ngFor="let m of marcas" type="number" [value]="m.idMarca">
+                            {{m.nombreMarca}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="producto.nombre" name="nombre" placeholder="Nombre de producto">
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput placeholder="Cantidad" [(ngModel)]="producto.cantidad" name="cantidad" #cantidad="ngModel" type="number">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput placeholder="Talle" type="text" [(ngModel)]="producto.talle" #talle="ngModel" name="talle">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput placeholder="Precio de venta" type="number" [(ngModel)]="producto.precioVenta" name="precioVenta" #precioVenta="ngModel">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput placeholder="Precio de compra" type="number" [(ngModel)]="producto.precioCompra" name="precioCompra" #precioCompra="ngModel">
+                </mat-form-field>
+            </div>
+        </div>
+        <span style="float: right;">                
+                <button type="submit" value="Guardar" class="btn btn-success mr-2" (click)="altaStock()">Guardar</button>
+            
+                <button class="btn btn-light" [routerLink]="['/dashboard']">Cancelar</button>
+            </span>
+    </form>
+</mat-dialog-content> -->

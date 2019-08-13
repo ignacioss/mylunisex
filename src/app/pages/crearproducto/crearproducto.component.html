@@ -1,0 +1,137 @@
+<div class="form-group col-md-10">
+    <div class="alert alert-success" [hidden]="notificacionCargado">
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span></button>
+        <strong>Producto cargado correctamente!</strong> 
+    </div>
+
+
+
+
+    <div class="alert alert-danger" [hidden]="notificacionExiste">
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span></button>
+        <strong>Ya existe un producto con estas caracteristicas! </strong> Para verlo, <a href="#" [routerLink]="url"
+            class="alert-link">haga click
+            aqui</a>
+    </div>
+
+
+    <div class="alert alert-danger" [hidden]="notificacionError">
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span></button>
+            <strong>Ha ocurrido un error! </strong> Intente cargar  nuevamente o contacte con el administrador
+        </div>
+
+
+
+    <div class="container">
+        <h3>Agregar producto:</h3>
+        <br>
+
+        <form [formGroup]="formulario" (submit)="onSubmit(formulario)">
+
+            <div class="container">
+                <div class="form-row bg-light">
+
+
+                    <div class=" col-md-5">
+                        <label>Nombre del nuevo producto</label>
+                        <input value="newProducto" type="text" class="form-control"
+                            placeholder="Nombre del nuevo producto" formControlName="nombre" id="Nombre">
+                        <div class="errorcodigo" *ngIf="formulario.controls.nombre.errors">
+                            El campo no puede estar vacio
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 float-md-right">
+                        <label for="avatar">Imagen para el producto:</label>
+
+
+                        <form [formGroup]="formula" accept="image/*">
+                            <input #myInput type="file" name="avatar" (change)="onFileSelect($event)" />
+                        </form>
+
+                        <br>
+                        <div class="form-group" [hidden]="ocultarFoto">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div *ngIf="prev">
+                                        <img src="data:image/png;base64,{{ imagenSeleccionada }}" class="img-thumbnail"
+                                            width="200" height="200" formControlName="imagen">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="form-row ">
+
+                    <div class="col-md-5">
+                        <mat-form-field>
+                            <mat-label>Marcas</mat-label>
+                            <mat-select id="idMarca" formControlName="idMarca">
+                                <mat-option *ngFor="let i of marcas" [value]="i.idMarca">
+                                    {{i.nombreMarca}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+
+                    <div class="col-md-5">
+                        <mat-form-field>
+                            <mat-label>Categoria</mat-label>
+                            <mat-select id="idCategoria" formControlName="idCategoria">
+                                <mat-option *ngFor="let i of categorias" [value]="i.idCategoria">
+                                    {{i.nombreCategoria}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+            <br>
+
+
+            <div class="container h-100" [hidden]="loading">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <form class="col-8">
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="form-groupd-block">
+                <br><br>
+                <button type="submit" class="btn btn-success btn-block" [disabled]="desactivarBoton">Guardar</button>
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+
+
+
+
+
+</div>

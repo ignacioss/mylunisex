@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/theming';
+@import "./app/themes/palette.scss";
+@import "./app/themes/open-sans.scss";
+@import "./app/themes/material.icons.scss";
+$custom-typography: mat-typography-config( $font-family: 'Open Sans, sans-serif');
+@include mat-core($custom-typography);
+$primary: mat-palette($mat-black, 900);
+$accent: mat-palette($mat-deep-orange, 500, A100, A400);
+$warn: mat-palette($mat-red, 600);
+$theme: mat-light-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+//@import "./app/themes/black-deep-orange.theme.scss";
+body {
+    margin: 0 !important;
+}
+
+.list-item-active {
+    font-weight: bold;
+    color: mat-color($accent, darker) !important;
+    background: rgba(0, 0, 0, 0.04);
+}
