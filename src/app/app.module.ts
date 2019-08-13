@@ -52,6 +52,8 @@ import { TallesComponent } from './pages/talles/tallesprincipal/talles.component
 import { AgregartalleComponent } from './pages/talles/agregartalle/agregartalle.component';
 import { EditartalleComponent } from './pages/talles/editartalle/editartalle.component';
 import { VerUltimaActualizacionComponent } from './pages/ver-ultima-actualizacion/ver-ultima-actualizacion.component';
+import { VentasComponent } from './pages/ventas/ventas/ventas.component';
+import { NuevaVentaComponent } from './pages/ventas/nueva-venta/nueva-venta.component';
 
 const routes: Routes = [{
   path: '',
@@ -79,7 +81,9 @@ const routes: Routes = [{
     TallesComponent,
     AgregartalleComponent,
     EditartalleComponent,
-    VerUltimaActualizacionComponent
+    VerUltimaActualizacionComponent,
+    VentasComponent,
+    NuevaVentaComponent
   ],
   imports: [
     BrowserModule,

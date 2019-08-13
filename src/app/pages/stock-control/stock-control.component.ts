@@ -213,7 +213,7 @@ export class StockControlComponent implements OnInit, AfterViewInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     const dialogRef = this.dialog.open(VerUltimaActualizacionComponent, {
-      width: '550px',
+      width: '600px',
       height: '470px',
       data: { dialogTitle: element, sucursal: this.SucursalSeleccionada }
     });

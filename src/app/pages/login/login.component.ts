@@ -5,6 +5,7 @@ import { UserService } from '../../user/user.service';
 import { User } from '../../user/user.model';
 import { AuthService } from '../../auth/auth.service';
 import { Observable } from 'rxjs';
+import { AppComponent } from 'src/app/app.component';
 
 
 export interface aMandar {
@@ -34,7 +35,8 @@ export class LoginComponent implements OnInit {
 
   Manda: Login;
   aMandar: aMandar;
-  constructor(private authService: AuthService, private router: Router, private stockService: StockService, private userService: UserService) {
+  constructor(private authService: AuthService, private router: Router, private stockService: StockService, private userService: UserService
+    , private appComponent: AppComponent) {
 
 
   }
@@ -52,7 +54,6 @@ export class LoginComponent implements OnInit {
     let u: User = { userName: null };
     this.userService.setUserLoggedIn(u);
     this.authService.logout();
-
     console.log(this.authService.isLoggedIn);*/
     console.log( "lenght ",  this.Manda.userName.length);
 
@@ -85,20 +86,22 @@ export class LoginComponent implements OnInit {
       this.stockService.login(this.aMandar).subscribe(
 
         res => {
-          console.log(res);
           if (res.resultado > 0) {
 
-            console.log(res);
-
+      
             this.Manda = {
               userName: this.id,
               nombre: res.datos.nombre
             }
 
+            console.log(this.Manda);
             this.userService.setUserLoggedIn(this.Manda);
-
+            this.Manda = this.userService.getUserLoggedIn();
+            console.log(this.Manda);
 
             this.authService.login(this.Manda);
+            
+    this.appComponent.ngOnInit();
             //  this.navigate();
           }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, AnimationDurations } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UserService } from '../../user/user.service';
 
 // servicios
 import { StockService } from 'src/app/services/stock.service';
@@ -30,6 +31,7 @@ export interface Producto {
 }
 
 export interface Mandar {
+  user:any,
   cantidad: any,
   idTalle: any,
   precioVenta: any,
@@ -61,7 +63,7 @@ export class AltaTalleProductoComponent implements OnInit {
 
 
   constructor(private frmBuilder: FormBuilder, private stockService: StockService, public dialogRef: MatDialogRef<AltaTalleProductoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) {
     this.producto = {
       codProducto: '',
       numDia: '',
@@ -176,7 +178,10 @@ export class AltaTalleProductoComponent implements OnInit {
     if (formulario.status == "VALID" && formulario.get('cantidad').value != 0
       && formulario.get('precioComprado').value != 0 && formulario.get('precioVenta').value != 0) {
 
+        let user = this.userService.getUserLoggedIn();
+
       this.aMandar = {
+        user: user.userName,
         cantidad: formulario.get('cantidad').value,
         idTalle: formulario.get('idTalle').value,
         precioVenta: formulario.get('precioVenta').value,

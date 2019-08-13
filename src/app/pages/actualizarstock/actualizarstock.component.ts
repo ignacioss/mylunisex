@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Inject, } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, AnimationDurations } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UserService } from '../../user/user.service';
 
 
 
@@ -23,6 +24,7 @@ export interface Producto {
 }
 
 export interface Mandar {
+  user: any,
   cantidad: any,
   idTalle: any,
   precioVenta: any,
@@ -47,7 +49,7 @@ export class ActualizarstockComponent implements OnInit {
   formulario: FormGroup;
 
   constructor(private frmBuilder: FormBuilder, private stockService: StockService, public dialogRef: MatDialogRef<ActualizarstockComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) {
     this.producto = {
       codProducto: '',
       numDia: '',
@@ -115,10 +117,11 @@ export class ActualizarstockComponent implements OnInit {
 
       let cantidadDada = formulario.get('cantidad').value;
       let precioCompradoDado = formulario.get('precioComprado').value;
+      let user = this.userService.getUserLoggedIn();
 
 
-
-      this.aMandar = {
+      this.aMandar = {        
+        user: user.userName,
         cantidad: cantidadDada,
         idTalle: this.elemento.idTalle,
         precioVenta: this.elemento.precioVenta,

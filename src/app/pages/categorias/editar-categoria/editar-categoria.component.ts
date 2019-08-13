@@ -42,14 +42,19 @@ export class EditarCategoriaComponent implements OnInit {
   cancelar() {
     this.dialogRef.close();
   }
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+  
 
   onSubmit(formulario){
 
       if(formulario.status == "VALID"){
 
+        let nombre = this.capitalize(formulario.get('nombreCategoria').value);
         this.aMandar = {
           idCategoria: this.categoria.idCategoria,
-          nombreCategoria: formulario.get('nombreCategoria').value
+          nombreCategoria: nombre
         }
         
       this.stockService.actualizarCategoria(this.aMandar).subscribe(result => {

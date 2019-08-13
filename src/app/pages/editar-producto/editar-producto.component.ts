@@ -4,11 +4,13 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 
 
+import { UserService } from '../../user/user.service';
 import { StockService } from 'src/app/services/stock.service';
 
 
 
 export interface Mandar  {
+  user:any,
   cantidad: number,
   idTalle:number,
   precioVenta: number,
@@ -50,7 +52,7 @@ export class EditarProductoComponent implements OnInit {
   @Output() submitClicked = new EventEmitter<any>();
 
   constructor(private frmBuilder: FormBuilder, private stockService: StockService, public dialogRef: MatDialogRef<EditarProductoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) {
     this.producto = {
       codProducto: '',
       numDia: '',
@@ -124,10 +126,11 @@ export class EditarProductoComponent implements OnInit {
 
       let cantidadDada = formulario.get('cantidad').value;
       let precioCompradoDado = formulario.get('precioComprado').value;
-
+      let user = this.userService.getUserLoggedIn();
 
 
       this.aMandar = {
+        user: user.userName,
         cantidad: cantidadDada,
         idTalle: this.elemento.idTalle,
         precioVenta: this.elemento.precioVenta,

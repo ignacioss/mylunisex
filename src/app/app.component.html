@@ -2,28 +2,29 @@
 
   <h1 class="display-1 text-white">M&L Calzados Unisex</h1>
   <p class="text-white">Somos una empresa que te puede brindar los productos de mejor calidad.</p>
-  <p class  ="text-white" [(ngModel)]="nombre" ngDefaultControl>Bienvenido {{nombre}}</p>
+  <p class="text-white" [(ngModel)]="nombre" ngDefaultControl>Bienvenido {{nombre}}</p>
 
 </div>
 
 
-  <nav class="navbar navbar-expand-md navbar-light bg-dark " *ngIf="isLoggedIn$ | async as isLoggedIn">
+<nav class="navbar navbar-expand-md navbar-light bg-dark " *ngIf="isLoggedIn$ | async as isLoggedIn">
 
-    <div class="collapse navbar-collapse" id="secondNavbar">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link  text-white" href="#" [routerLink]="['/dashboard/']">Stock</a></li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle  text-white" data-toggle="dropdown">
-            Perfil de {{nombre}}
-          </a>
-          <div class="dropdown-menu">
-            <a (click)="onLogout()" class="dropdown-item">Cerrar Sesion</a>
-          </div>
-        </li>
-      </ul>
-    </div>
+  <div class="collapse navbar-collapse" id="secondNavbar">
+    <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item"><a class="nav-link  text-white" href="#" [routerLink]="['/ventas/']">Ventas</a></li>
+      <li class="nav-item"><a class="nav-link  text-white" href="#" [routerLink]="['/dashboard/']">Stock</a></li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle  text-white" data-toggle="dropdown">
+          Perfil de {{nombre}}
+        </a>
+        <div class="dropdown-menu">
+          <a (click)="onLogout()" class="dropdown-item">Cerrar Sesion</a>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-  </nav>
+</nav>
 
 
 

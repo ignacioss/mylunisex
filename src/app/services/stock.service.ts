@@ -46,6 +46,20 @@ export class StockService {
     return this.http.post("https://holanosoynada222.000webhostapp.com/Zapat/Productos/UltimaModificacion.php", json);
   }
 
+  
+  actualizarPrecioCompradoYCantidadAProducto(producto: any): Observable<any> {
+    let json = JSON.stringify(producto);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post("https://holanosoynada222.000webhostapp.com/Zapat/Productos/actualizarPrecioCompradoYCantidadAProducto.php", json);
+  }
+
+  
+  actualizarProductoEnPrecios(producto: any): Observable<any> {
+    let json = JSON.stringify(producto);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post("https://holanosoynada222.000webhostapp.com/Zapat/Productos/actualizarProductoEnPrecios.php", json);
+  }
+
   insertarOActualizarProducto(producto: any): Observable<any> {
     let json = JSON.stringify(producto);
     let headers = new HttpHeaders().set('Content-Type', 'application/json');

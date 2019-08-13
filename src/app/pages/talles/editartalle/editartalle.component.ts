@@ -43,13 +43,18 @@ export class EditartalleComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  mayusculas(string) {
+    return string.slice(0).toUpperCase();
+  }
+
   onSubmit(formulario){
 
       if(formulario.status == "VALID"){
+        let nombre = this.mayusculas(formulario.get('nombreTalle').value);
 
         this.aMandar = {
           idTalle: this.marca.idTalle,
-          nombreTalle: formulario.get('nombreTalle').value
+          nombreTalle: nombre
         }
         console.log(this.aMandar);
 

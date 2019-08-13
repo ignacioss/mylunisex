@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, AnimationDurations } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { UserService } from '../../user/user.service';
 // servicios
 import { StockService } from 'src/app/services/stock.service';
 
@@ -36,6 +37,7 @@ export interface ProductoNuevo {
 }
 
 export interface Mandar {
+  user: any;
   cantidad: any,
   idTalle: any,
   precioVenta: any,
@@ -54,12 +56,12 @@ export interface Mandar {
 export class AltaProductoComponent implements OnInit {
 
   sucursal: any;
-  formulario:any;
+  formulario: any;
   @Output() submitClicked = new EventEmitter<any>();
 
 
   constructor(private stockService: StockService, public dialogRef: MatDialogRef<AltaProductoComponent>, private frmBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) {
     this.producto = {
       codProducto: '',
       numDia: '',
@@ -125,7 +127,7 @@ export class AltaProductoComponent implements OnInit {
         } else {
           alert("Ya tienes todos los productos cargados disponibles en esta sucursal, o no hay ningun producto cargado en stock general");
           this.dialogRef.close();
-          
+
         }
       }
     )
@@ -152,12 +154,15 @@ export class AltaProductoComponent implements OnInit {
   }
 
   onSubmit(formulario) {
-    console.log(formulario);  
-    
+    console.log(formulario);
+
     if (formulario.status == "VALID" && formulario.get('cantidad').value != 0
       && formulario.get('precioComprado').value != 0 && formulario.get('precioVenta').value != 0) {
 
+      let user = this.userService.getUserLoggedIn();
+
       this.aMandar = {
+        user: user.userName,
         cantidad: formulario.get('cantidad').value,
         idTalle: formulario.get('idTalle').value,
         precioVenta: formulario.get('precioVenta').value,
@@ -177,7 +182,7 @@ export class AltaProductoComponent implements OnInit {
 
           }
         })
-    }else{
+    } else {
       alert("Debe completar correctamente todos los campos");
     }
 

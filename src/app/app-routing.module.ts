@@ -23,6 +23,10 @@ import { EditartalleComponent } from './pages/talles/editartalle/editartalle.com
 
 import { VerUltimaActualizacionComponent } from './pages/ver-ultima-actualizacion/ver-ultima-actualizacion.component';
 
+import { VentasComponent } from './pages/ventas/ventas/ventas.component';
+import { NuevaVentaComponent } from './pages/ventas/nueva-venta/nueva-venta.component';
+
+
 const routes: Routes = [{
   path: '',
   loadChildren: './pages/login/login.module#LoginModule'
@@ -49,6 +53,17 @@ const routes: Routes = [{
 
 }]
 },
+
+{
+  path: 'ventas', component: VentasComponent,
+  children: [{
+    path: 'nuevaVenta', component: NuevaVentaComponent 
+  }]
+
+}
+
+
+,
 { path: 'editarProducto', component: EditarProductoComponent },
 { path: 'editarProductoGeneral', component: EditarProductoGeneralComponent },
 { path: 'actualizarstock', component: ActualizarstockComponent },

@@ -44,13 +44,20 @@ export class EditarmarcaComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+  
   onSubmit(formulario){
 
       if(formulario.status == "VALID"){
 
+        
+        let nombre = this.capitalize(formulario.get('nombreMarca').value);
+
         this.aMandar = {
           idMarca: this.marca.idMarca,
-          nombreMarca: formulario.get('nombreMarca').value
+          nombreMarca: nombre
         }
         console.log(this.aMandar);
 

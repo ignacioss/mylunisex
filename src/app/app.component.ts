@@ -29,7 +29,10 @@ export class AppComponent implements OnInit  {
  
   isLoggedIn$: Observable<boolean> ;
   Manda: Login;
-  nombre:string;
+  
+  userName: string = null;
+  nombre:string=null;
+
 
   constructor(private authService: AuthService,private userService: UserService) { }
 
@@ -37,15 +40,15 @@ export class AppComponent implements OnInit  {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     
     this.Manda = this.userService.getUserLoggedIn();
-    
-    this.nombre = this.Manda.nombre;
-    
-    this.nombre = this.capitalize (this.nombre);
-    console.log("este de abajo");
-    console.log(this.Manda);
 
-        
-    if (this.Manda.userName != "" && this.Manda.userName != null) {
+ 
+    if (this.Manda != null ) {
+      
+      this.nombre = this.capitalize (this.Manda.nombre);
+    
+      this.userName =this.Manda.userName;
+      console.log("este de abajo");
+      console.log(this.Manda.nombre);
 
       this.authService.login(this.Manda);
  

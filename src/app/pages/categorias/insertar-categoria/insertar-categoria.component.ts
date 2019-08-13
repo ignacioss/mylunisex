@@ -33,13 +33,17 @@ export class InsertarCategoriaComponent implements OnInit {
   cancelar() {
     this.dialogRef.close();
   }
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
 
   onSubmit(formulario){
 
       if(formulario.status == "VALID"){
-
+        
+        let nombre = this.capitalize(formulario.get('nombreCategoria').value);
         this.aMandar = {
-          nombreCategoria: formulario.get('nombreCategoria').value
+          nombreCategoria: nombre
         }
         console.log(this.aMandar);
 
