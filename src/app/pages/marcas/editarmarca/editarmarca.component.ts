@@ -45,7 +45,7 @@ export class EditarmarcaComponent implements OnInit {
   }
 
   capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    return string.trim().charAt(0).toUpperCase() + string.trim().slice(1).toLowerCase(); 
   }
   
   onSubmit(formulario){

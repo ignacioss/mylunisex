@@ -34,7 +34,7 @@ export class AgregartalleComponent implements OnInit {
   }
 
   mayusculas(string) {
-    return string.slice(0).toUpperCase();
+    return string.trim().slice(0).toUpperCase();
   }
 
   onSubmit(formulario) {
