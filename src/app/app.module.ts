@@ -20,7 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { MatSlideToggleModule, MatOptionModule } from '@angular/material';
+import { MatSlideToggleModule, MatOptionModule, MatOption } from '@angular/material';
 import {MatProgressBarModule } from '@angular/material/progress-bar';1
 import {MatSortModule } from '@angular/material';
 
@@ -101,6 +101,7 @@ const routes: Routes = [{
     HttpModule,
     MatSelectModule,
     MatOptionModule,
+    MatOption,
     ReactiveFormsModule,
     MatSlideToggleModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 5000, position: 'right'}),
