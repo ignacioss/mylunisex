@@ -88,21 +88,30 @@ export class LoginComponent implements OnInit {
         res => {
           if (res.resultado > 0) {
 
+            if(res.datos.TipoUsuario == 1){
+
+            
       
+            console.log(res.datos);
             this.Manda = {
               userName: this.id,
               nombre: res.datos.nombre
             }
 
-            console.log(this.Manda);
             this.userService.setUserLoggedIn(this.Manda);
             this.Manda = this.userService.getUserLoggedIn();
-            console.log(this.Manda);
 
             this.authService.login(this.Manda);
             
     this.appComponent.ngOnInit();
             //  this.navigate();
+
+          }
+          else if(res.datos.TipoUsuario >1){
+            alert(res.datos.nombre + ", no tiene permisos para acceder a este sitio.");
+          }else{
+            alert("Datos incorrectos");
+          }
           }
 
         },
