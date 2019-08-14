@@ -144,7 +144,8 @@ export class EditarProductoGeneralComponent implements OnInit {
   }
 
   capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+      return string.trim().charAt(0).toUpperCase() + string.trim().slice(1).toLowerCase(); 
+   
   }
 
   resetearCampos() {
@@ -171,9 +172,8 @@ export class EditarProductoGeneralComponent implements OnInit {
       this.desactivarBoton = true;
       this.loading = false;
 
-
       formulario.get('nombre').value = this.capitalize(formulario.get('nombre').value);
-
+     
       this.aMandar = {
         codGrupal: this.elemento.codGrupal,
         nombre: formulario.get('nombre').value,

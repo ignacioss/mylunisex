@@ -44,7 +44,7 @@ export class EditartalleComponent implements OnInit {
   }
 
   mayusculas(string) {
-    return string.slice(0).toUpperCase();
+    return string.trim().slice(0).toUpperCase();
   }
 
   onSubmit(formulario){

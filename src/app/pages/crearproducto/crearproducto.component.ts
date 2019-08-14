@@ -140,8 +140,8 @@ export class CrearproductoComponent implements OnInit {
 
   }
 
-  capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  capitalize(string) {  
+    return string.trim().charAt(0).toUpperCase() + string.trim().slice(1).toLowerCase(); 
   }
 
   resetearCampos() {

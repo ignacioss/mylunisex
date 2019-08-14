@@ -1,17 +1,16 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { AltaProductoComponent } from '../alta-producto/alta-producto.component';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { StockService } from 'src/app/services/stock.service';
 import { ActualizarstockComponent } from '../actualizarstock/actualizarstock.component';
 import { EditarPrecioVentaComponent } from '../editar-precio-venta/editar-precio-venta.component';
-import  {VerUltimaActualizacionComponent} from '../ver-ultima-actualizacion/ver-ultima-actualizacion.component'
+import { VerUltimaActualizacionComponent } from '../ver-ultima-actualizacion/ver-ultima-actualizacion.component'
 import { AltaTalleProductoComponent } from '../alta-talle-producto/alta-talle-producto.component';
 import { UserService } from '../../user/user.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import {MatSortModule, MatSort } from '@angular/material';
+import { MatSortModule, MatSort, MatTableDataSource } from '@angular/material';
 import { ViewChild } from '@angular/core';
 
 
@@ -33,7 +32,8 @@ export interface Producto {
 }
 
 export interface Owner {
-  codProducto: number;
+  codGrupal:string;
+  codProducto: string;
   nombre: string;
   nombreMarca: string;
   nombreCategoria: string;
@@ -42,6 +42,12 @@ export interface Owner {
   cantidad: number;
 
 }
+
+export interface OwnerGrupal {
+  codGrupal: number;
+}
+
+
 
 export interface Owner2 {
   codGrupal: number;
@@ -68,7 +74,7 @@ export interface PeriodicElement {
 }
 export interface Login {
   userName: string;
-  nombre:string;
+  nombre: string;
 }
 
 
@@ -81,10 +87,16 @@ export interface Login {
 export class StockControlComponent implements OnInit, AfterViewInit {
 
   Manda: Login;
-  dni:any;
+  dni: any;
+  public dataSource = new MatTableDataSource<Owner>();
+  
+  nameFilter = new FormControl('');
+
+  filterValues = {    codGrupal: ''};
 
   formulario: any;
-  constructor(private frmBuilder: FormBuilder, private dialog: MatDialog, private _stockservice: StockService, private userService: UserService) {
+  constructor(private frmBuilder: FormBuilder, private dialog: MatDialog, private _stockservice: StockService, 
+    private userService: UserService) {
     this.producto = {
       codProducto: '',
       numDia: '',
@@ -107,8 +119,15 @@ export class StockControlComponent implements OnInit, AfterViewInit {
     });
 
 
+    this.dataSource.filterPredicate = this.tableFilter();
+
 
   }
+
+
+
+
+
   ocultarTabla1: boolean;
   ocultarTabla2: boolean;
   ocultarSlide: boolean;
@@ -119,8 +138,8 @@ export class StockControlComponent implements OnInit, AfterViewInit {
   SucursalSeleccionada: any;
   username: any;
   usserLogged: string;
-  eventCheked:any;
-  displayedColumns = ['position', 'codGrupal', 'name', 'marca', 'categoria', 'talle', 'precioComprado', 'precioVenta', 'cantidad', 'actions'];
+  eventCheked: any;
+  displayedColumns = ['codGrupal', 'position', 'name', 'marca', 'categoria', 'talle', 'precioComprado', 'precioVenta', 'cantidad', 'actions'];
 
 
 
@@ -129,15 +148,27 @@ export class StockControlComponent implements OnInit, AfterViewInit {
 
   imagenes: any;
   aTabla: any;
-  public dataSource= new MatTableDataSource<Owner>();;
+  public dataSourceCodGrupal = new MatTableDataSource<OwnerGrupal>();
   public dataSource2;
+  public dataSourceCodGrupal2 = new MatTableDataSource<OwnerGrupal>();
   slideBar: boolean;
 
+  
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
- 
+
 
   ngOnInit() {
+
+    this.nameFilter.valueChanges
+    .subscribe(
+      name => {
+        this.filterValues.codGrupal = name;
+        this.dataSource.filter = JSON.stringify(this.filterValues);
+      })
+    
+
+
     this.slideBar = false;
     this.username = this.userService.getUserLoggedIn();
     this.formulario.get('username').setValue(this.username);
@@ -147,10 +178,18 @@ export class StockControlComponent implements OnInit, AfterViewInit {
     this.ocultarBotonAgregarTalle = true;
     this.ocultarBotonAgregarProducto = true;
     this.getSucursales();
-
+     
   }
 
- 
+  tableFilter(): (data: any, filter: string) => boolean {
+    console.log("hola");
+    let filterFunction = function(data, filter): boolean {
+      let searchTerms = JSON.parse(filter);
+      return data.codGrupal.toLowerCase().indexOf(searchTerms.codGrupal) !== -1
+    }
+    return filterFunction;
+  } 
+
   sortJSON(data: any, key: any, orden: any) {
     return data.sort(function (a, b) {
       var x = a[key],
@@ -204,9 +243,9 @@ export class StockControlComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  
 
-  
+
+
   verUltModif(element: Producto) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -272,7 +311,7 @@ export class StockControlComponent implements OnInit, AfterViewInit {
 
   onChangeSucursal(sucursal) {
 
-    
+
     this.dataSource = null;
     this.dataSource2 = null;
 
@@ -282,7 +321,7 @@ export class StockControlComponent implements OnInit, AfterViewInit {
     this.ocultarTabla2 = true;
     this.ocultarBotonAgregarTalle = true;
     this.ocultarBotonAgregarProducto = true;
-    
+
 
 
     for (let i = 0; i < this.sucursales.length; i++) {
@@ -292,40 +331,67 @@ export class StockControlComponent implements OnInit, AfterViewInit {
     }
 
 
+
+
     this._stockservice.getStockSucursal(sucursal.idLocal).subscribe(
       res => {
         if (res.datos != null) {
-          this.sortJSON(res.datos, 'nombre', 'asc');// ordena ascendente el json 
+          this.sortJSON(res.datos, 'codGrupal', 'asc');// ordena ascendente el json 
           this.dataSource = new MatTableDataSource<Owner>();
           this.dataSource.data = res.datos as Owner[];
-          console.log(this.dataSource.data);
+
+          this.nameFilter.valueChanges
+          .subscribe(
+            codGrupal => {
+              this.filterValues.codGrupal = codGrupal;
+              this.dataSource.filter = JSON.stringify(this.filterValues);
+            }
+          )
+      
+
+         this.dataSourceCodGrupal = new MatTableDataSource<OwnerGrupal>();
+
+          let codigosGrupales = new Array();
+          for (let i = 0; i < res.datos.length; i++) {
+            codigosGrupales[i] = res.datos[i].codGrupal;
+            
+                  var resultado = codigosGrupales.map(function(elemento){
+                    return {codGrupal: elemento};
+                  });
+          }
+
+          this.dataSourceCodGrupal.data = resultado as OwnerGrupal[];
 
 
-       
 
           this._stockservice.getStockGeneralSucursal(sucursal.idLocal).subscribe(
             res => {
               if (res.resultado == 1) {
-                this.sortJSON(res.datos, 'nombre', 'asc'); // ordena ascendente el json 
+                this.sortJSON(res.datos, 'codGrupal', 'asc'); // ordena ascendente el json 
                 this.dataSource2 = new MatTableDataSource<Owner2>();
                 this.dataSource2.data = res.datos as Owner2[];
 
+
                 for (let i = 0; i < res.datos.length; i++) {
-                  this.dataSource2.data[i].imagen = this.URLIMAGEN + res.datos[i].imagen;
+                  this.dataSource2.data[i].imagen = this.URLIMAGEN + res.datos[i].imagen;                  
                 }
+
+                
+                console.log("DATA1: " + this.dataSourceCodGrupal.data);
+                console.log("DATA2: " + this.dataSource2.data);
 
                 this.ocultarBotonAgregarTalle = false;
                 this.ocultarSlide = false;
                 this.ocultarBotonAgregarProducto = true;
               }
             })
-        } else {          
-            alert("No hay productos cargados en esta sucursal");
-            this.ocultarBotonAgregarTalle = true;
-            this.ocultarTabla1 = false;
-            this.ocultarSlide = true;
-            this.ocultarBotonAgregarProducto = false;
-          
+        } else {
+          alert("No hay productos cargados en esta sucursal");
+          this.ocultarBotonAgregarTalle = true;
+          this.ocultarTabla1 = false;
+          this.ocultarSlide = true;
+          this.ocultarBotonAgregarProducto = false;
+
         }
       }
     )
@@ -350,6 +416,15 @@ export class StockControlComponent implements OnInit, AfterViewInit {
 
   }
 
+
+  applyFilterCodGrupal(filterValue: string) {
+
+    this.dataSource.filterPredicate =
+    (data: Owner, filter: string) => !filter || data.codProducto == filter;
+
+
+      this.dataSourceCodGrupal.filter = filterValue.trim().toLowerCase();
+  }
 
   applyFilter(filterValue: string) {
     if (this.ocultarTabla2) {
